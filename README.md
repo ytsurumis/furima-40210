@@ -26,8 +26,6 @@ has_many :purchases
 | area_id             | integer       | null: false                    |
 | number_of_days_id   | integer       | null: false                    |
 | price               | integer       | null: false                    |
-| commission          | integer       | null: false                    |
-| profit              | integer       | null: false                    |
 | user                | references    | null: false, foreign_key: true |
 
 belongs_to :user
@@ -49,10 +47,10 @@ has_one :shipping
 | Column              | Type          | Options                        |
 |---------------------|---------------|--------------------------------|
 | post_code           | string        | null: false                    |
-| prefecture          | string        | null: false                    |
+| area_id             | string        | null: false                    |
 | municipalities      | string        | null: false                    |
 | street              | string        | null: false                    |
-| building            | string        | null: true                     |
+| building            | string        |                                |
 | phone               | string        | null: false                    |
 | purchase            | references    | null: false, foreign_key: true |
 
