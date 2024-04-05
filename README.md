@@ -47,7 +47,7 @@ has_one :shipping
 | Column              | Type          | Options                        |
 |---------------------|---------------|--------------------------------|
 | post_code           | string        | null: false                    |
-| area_id             | string        | null: false                    |
+| area_id             | integer       | null: false                    |
 | municipalities      | string        | null: false                    |
 | street              | string        | null: false                    |
 | building            | string        |                                |
