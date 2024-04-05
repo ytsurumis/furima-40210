@@ -24,7 +24,7 @@ has_many :purchases
 | condition_id        | integer       | null: false                    |
 | burden_id           | integer       | null: false                    |
 | area_id             | integer       | null: false                    |
-| number_of_days_id   | integer       | null: false                    |
+| number_of_day_id    | integer       | null: false                    |
 | price               | integer       | null: false                    |
 | user                | references    | null: false, foreign_key: true |
 
