@@ -13,7 +13,7 @@ class User < ApplicationRecord
     validates :family_name_reading
     validates :first_name_reading
   end
-  
+
   validates :birthday, presence: true
 
 end
