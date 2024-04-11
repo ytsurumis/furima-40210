@@ -1,4 +1,3 @@
-
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
@@ -35,28 +34,28 @@ RSpec.describe User, type: :model do
       user = FactoryBot.build(:user)
       user.family_name = ''
       user.valid?
-      expect(user.errors.full_messages).to include("Family name can't be blank", "Family name 全角文字を使用してください")
+      expect(user.errors.full_messages).to include("Family name can't be blank", 'Family name 全角文字を使用してください')
     end
 
     it 'first_nameが空では登録できない' do
       user = FactoryBot.build(:user)
       user.first_name = ''
       user.valid?
-      expect(user.errors.full_messages).to include("First name can't be blank", "First name 全角文字を使用してください")
+      expect(user.errors.full_messages).to include("First name can't be blank", 'First name 全角文字を使用してください')
     end
 
     it 'family_name_readingが空では登録できない' do
       user = FactoryBot.build(:user)
       user.family_name_reading = ''
       user.valid?
-      expect(user.errors.full_messages).to include("Family name reading can't be blank", "Family name reading 全角文字を使用してください")
+      expect(user.errors.full_messages).to include("Family name reading can't be blank", 'Family name reading 全角文字を使用してください')
     end
 
     it 'first_name_readingが空では登録できない' do
       user = FactoryBot.build(:user)
       user.first_name_reading = ''
       user.valid?
-      expect(user.errors.full_messages).to include("First name reading can't be blank", "First name reading 全角文字を使用してください")
+      expect(user.errors.full_messages).to include("First name reading can't be blank", 'First name reading 全角文字を使用してください')
     end
 
     it 'birthdayが空では登録できない' do
@@ -65,6 +64,5 @@ RSpec.describe User, type: :model do
       user.valid?
       expect(user.errors.full_messages).to include("Birthday can't be blank")
     end
-
   end
 end
