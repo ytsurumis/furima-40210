@@ -51,6 +51,12 @@ RSpec.describe User, type: :model do
       expect(@user.errors.full_messages).to include("Password is too short (minimum is 6 characters)", "Family name 全角文字を使用してください", "First name 全角文字を使用してください", "Family name reading 全角文字を使用してください", "First name reading 全角文字を使用してください")
     end
 
+    it 'パスワードは英数字混在でないと登録できない' do
+      user = FactoryBot.build(:user,password: "aaaaaa", password_confirmation: "aaaaaa")
+      user.valid?
+      expect(user.errors.full_messages).to include("Family name 全角文字を使用してください", "First name 全角文字を使用してください", "Family name reading 全角文字を使用してください", "First name reading 全角文字を使用してください")
+    end
+
     it 'パスワードとパスワード（確認）が一致しないと登録できない' do
       user = FactoryBot.build(:user,password: "password123",password_confirmation: "password456")
       user.valid?
