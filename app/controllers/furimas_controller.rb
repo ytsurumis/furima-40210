@@ -21,6 +21,6 @@ class FurimasController < ApplicationController
   private
 
   def furima_params
-    params.require(:furima).permit(:image, :title, :description, :category_id, :condition_id, :burden_id, :area_id, :number_of_day_id).merge(user_id: current_user.id)
+    params.require(:furima).permit(:image, :title, :description, :category_id, :condition_id, :burden_id, :area_id, :number_of_day_id, :price).merge(user_id: current_user.id)
   end
 end

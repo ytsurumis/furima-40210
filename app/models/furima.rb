@@ -8,7 +8,7 @@ class Furima < ApplicationRecord
   belongs_to :area
   belongs_to :number_of_day
 
-  validates :title, :description, :price, presence: true
+  validates :title, :description, :price, :image, presence: true
   validates :category_id,numericality: { other_than: 1 , message: "can't be blank"}
   validates :condition_id,numericality: { other_than: 1 , message: "can't be blank"}
   validates :burden_id,numericality: { other_than: 1 , message: "can't be blank"}
