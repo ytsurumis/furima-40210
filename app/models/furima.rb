@@ -22,6 +22,4 @@ class Furima < ApplicationRecord
   validates :number_of_day_id, numericality: { other_than: 1, message: "can't be blank" }
   validates :price, presence: true, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999 }
 
-  VALID_NUMBER_REGEX = /\A\d+\z/
-  validates :price, format: { with: VALID_NUMBER_REGEX, message: 'is half-width number' }
 end
