@@ -9,7 +9,7 @@ FactoryBot.define do
     number_of_day_id       { Faker::Number.number(digits: rand(1..2)) }
     price                  { Faker::Commerce.price(range: 300..9_999_999, as_string: true) }
     after(:build) do |object|
-      object.image.attach(io: File.open('spec/factories/test.jpg'), filename: 'test.jpg', content_type: 'image/jpg')
+      object.image.attach(io: File.open('spec/factories/test.jpg'), filename: 'test.jpg', content_type: 'image/jpeg')
     end
     association :user
   end
