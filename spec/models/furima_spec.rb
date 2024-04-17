@@ -6,6 +6,10 @@ RSpec.describe Furima, type: :model do
   end
 
   describe '商品出品機能' do
+    it '必要な情報が存在すれば出品できる' do
+      expect(@furima).to be_valid
+    end
+
     it '画像なしでは出品できない' do
       @furima.image.purge
       @furima.valid?
@@ -51,7 +55,7 @@ RSpec.describe Furima, type: :model do
     it '発送までの日数が空だと出品できない' do
       @furima.number_of_day_id = 1
       @furima.valid?
-      expect(@furima.errors.full_messages).to include("Image can't be blank", "Number of day can't be blank")
+      expect(@furima.errors.full_messages).to include("Number of day can't be blank")
     end
 
     it '価格が空だと出品できない' do
@@ -63,19 +67,19 @@ RSpec.describe Furima, type: :model do
     it '価格が半角数値でなければ出品できない' do
       @furima.price = 'aaa'
       @furima.valid?
-      expect(@furima.errors.full_messages).to include("Image can't be blank")
+      expect(@furima.errors.full_messages).to include("Price is not a number")
     end
 
     it '商品の価格は300未満だと出品できない' do
       @furima.price = 299
       @furima.valid?
-      expect(@furima.errors.full_messages).to include("Image can't be blank")
+      expect(@furima.errors.full_messages).to include("Price must be greater than or equal to 300")
     end
 
     it '商品の価格は9,999,999より大きいと出品できない' do
       @furima.price = 10_000_000
       @furima.valid?
-      expect(@furima.errors.full_messages).to include("Image can't be blank")
+      expect(@furima.errors.full_messages).to include("Price must be less than or equal to 9999999")
     end
 
     it 'ユーザーが紐づいていなければ出品できない' do
