@@ -8,10 +8,21 @@ class Furima < ApplicationRecord
   belongs_to :area
   belongs_to :number_of_day
 
-  validates :title, :description, :price, :image, presence: true
+  validate :image_presence
+
+  def image_presence
+    errors.add(:image, "can't be blank")unless image.attached?
+  end
+
+  validates :title, :description, presence: true
   validates :category_id,numericality: { other_than: 1 , message: "can't be blank"}
   validates :condition_id,numericality: { other_than: 1 , message: "can't be blank"}
   validates :burden_id,numericality: { other_than: 1 , message: "can't be blank"}
   validates :area_id,numericality: { other_than: 1 , message: "can't be blank"}
   validates :number_of_day_id,numericality: { other_than: 1 , message: "can't be blank"}
+
+  VALID_NUMBER_REGEX = /\A\d+\z/
+  validates :price, presence:true
+  validates :price, numericality: { greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999 }
+  validates :price, format: { with: VALID_NUMBER_REGEX, message: 'Price is half-width number' }
 end

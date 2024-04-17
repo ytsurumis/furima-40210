@@ -8,7 +8,7 @@
     <%= form_with model: @furima, local: true do |f| %>
 
     <%# インスタンスを渡して、エラー発生時にメッセージが表示されるようにしましょう。%>
-    <% render 'shared/error_messages', model: @furima %>
+    <%= render 'shared/error_messages', model: @furima %>
     <%# //インスタンスを渡して、エラー発生時にメッセージが表示されるようにしましょう。%>
 
     <%# 商品画像 %>
