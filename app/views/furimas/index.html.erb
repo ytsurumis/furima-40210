@@ -128,11 +128,11 @@
     </div>
     <ul class='item-lists'>
 
-      <% @furimas.each do |furima| %>
+      <%# @furimas.each do |furima| %>
         <li class='list'>
           <%= link_to "#" do %>
           <div class='item-img-content'>
-            <%= image_tag furima.image.variant(resize: '33vhx33vh'), class: "item-img" if furima.image.attached? %>
+            <%#= image_tag furima.image.variant(resize: '33vhx33vh'), class: "item-img" if furima.image.attached? %>
 
             <%# 商品が売れていればsold outを表示しましょう %>
             <div class='sold-out'>
@@ -155,7 +155,7 @@
           </div>
           <% end %>
         </li>
-      <% end %>
+      <%# end %>
 
       <%# 商品がない場合は以下のダミー商品が表示されるようにしましょう %>
       <%# 商品がある場合は表示されないようにしましょう %>
