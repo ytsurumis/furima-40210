@@ -55,13 +55,13 @@ RSpec.describe Furima, type: :model do
     end
 
     it '価格が空だと出品できない' do
-      @furima.price = ""
+      @furima.price = ''
       @furima.valid?
       expect(@furima.errors.full_messages).to include("Price can't be blank")
     end
 
     it '価格が半角数値でなければ出品できない' do
-      @furima.price = "aaa"
+      @furima.price = 'aaa'
       @furima.valid?
       expect(@furima.errors.full_messages).to include("Image can't be blank")
     end
@@ -73,7 +73,7 @@ RSpec.describe Furima, type: :model do
     end
 
     it '商品の価格は9,999,999より大きいと出品できない' do
-      @furima.price = 10000000
+      @furima.price = 10_000_000
       @furima.valid?
       expect(@furima.errors.full_messages).to include("Image can't be blank")
     end
@@ -81,8 +81,7 @@ RSpec.describe Furima, type: :model do
     it 'ユーザーが紐づいていなければ出品できない' do
       @furima.user = nil
       @furima.valid?
-      expect(@furima.errors.full_messages).to include("User must exist")
+      expect(@furima.errors.full_messages).to include('User must exist')
     end
-      
   end
 end
