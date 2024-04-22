@@ -2,7 +2,6 @@ class FurimasController < ApplicationController
   before_action :authenticate_user!, only: [:new]
 
   def index
-    @furimas = Furima.all
     @furimas = Furima.order(created_at: :desc)
   end
 
