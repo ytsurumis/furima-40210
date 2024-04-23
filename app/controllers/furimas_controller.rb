@@ -26,6 +26,12 @@ class FurimasController < ApplicationController
     @furima = Furima.find(params[:id])
   end
 
+  def update
+    furima = Furima.find(params[:id])
+    furima.update(furima_params)
+    redirect_to furima_path
+  end
+
   private
 
   def furima_params
