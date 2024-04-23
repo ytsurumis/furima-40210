@@ -27,9 +27,12 @@ class FurimasController < ApplicationController
   end
 
   def update
-    furima = Furima.find(params[:id])
-    furima.update(furima_params)
-    redirect_to furima_path
+    @furima = Furima.find(params[:id])
+    if @furima.update(furima_params)
+      redirect_to furima_path
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   private
