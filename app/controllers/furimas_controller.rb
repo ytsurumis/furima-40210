@@ -45,8 +45,8 @@ class FurimasController < ApplicationController
 
   def move_to_index
     @furima = Furima.find(params[:id])
-    unless user_signed_in? && current_user.id == @furima.user_id
-      redirect_to action: :index
-    end
+    return if user_signed_in? && current_user.id == @furima.user_id
+
+    redirect_to action: :index
   end
 end
