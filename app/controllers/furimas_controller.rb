@@ -22,6 +22,10 @@ class FurimasController < ApplicationController
     @furima = Furima.find(params[:id])
   end
 
+  def edit
+    @furima = Furima.find(params[:id])
+  end
+
   private
 
   def furima_params
