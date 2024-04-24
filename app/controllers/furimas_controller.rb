@@ -2,7 +2,7 @@ class FurimasController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit]
   before_action :set_furima, only: [:show, :edit, :update]
   before_action :move_to_index, except: [:index, :show]
-  
+
   def index
     @furimas = Furima.order(created_at: :desc)
   end
@@ -22,8 +22,6 @@ class FurimasController < ApplicationController
 
   def show
   end
-
-  
 
   def edit
   end
@@ -45,6 +43,7 @@ class FurimasController < ApplicationController
 
   def move_to_index
     return if current_user.id == @furima.user_id
+
     redirect_to action: :index
   end
 
