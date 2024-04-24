@@ -1,6 +1,6 @@
 class FurimasController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit]
-  before_action :set_furima, only: [:show, :edit, :update]
+  before_action :set_furima, only: [:show, :edit, :update, :destroy]
   before_action :move_to_index, except: [:index, :show]
 
   def index
@@ -32,6 +32,11 @@ class FurimasController < ApplicationController
     else
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    @furima.destroy
+    redirect_to root_path
   end
 
   private
