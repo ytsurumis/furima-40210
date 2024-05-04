@@ -5,7 +5,7 @@ class CreateShippings < ActiveRecord::Migration[7.0]
       t.integer       :area_id,         null: false
       t.string        :municipalities,  null: false
       t.string        :street,          null: false
-      t.string        :buildeing
+      t.string        :building
       t.string        :phone,           null: false
       t.references    :purchase,        null: false, foreign_key: true
       t.timestamps

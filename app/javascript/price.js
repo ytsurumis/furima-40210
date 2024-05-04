@@ -10,4 +10,3 @@ function cul (){
   };
 
 window.addEventListener('turbo:load', cul);
-
