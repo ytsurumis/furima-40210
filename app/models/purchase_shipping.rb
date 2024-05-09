@@ -8,7 +8,13 @@ class PurchaseShipping
     validates :token
     validates :post_code, format: {with: /\A[0-9]{3}-[0-9]{4}\z/, message: "is invalid. Include hyphen(-)"}
   end
-  validates :area_id, numericality: {other_than: 0, message: "can't be blank"}
+  validates :area_id, numericality: {other_than: 1, message: "can't be blank"}
+  with_options presence: true do
+    validates :municipalities
+    validates :street
+    validates :phone, length: { minimum: 6, message: "is too short"}
+  end  
+  validates :phone, numericality: {message: "is not a number"}
 
   def save
     purchase = Purchase.create(user_id: user_id, furima_id: furima_id)
