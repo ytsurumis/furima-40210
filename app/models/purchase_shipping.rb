@@ -12,7 +12,7 @@ class PurchaseShipping
   with_options presence: true do
     validates :municipalities
     validates :street
-    validates :phone, length: { minimum: 6, message: 'is too short' }
+    validates :phone, length: { in: 10..11, message: 'is too short' }
   end
   validates :phone, numericality: { message: 'is not a number' }
 
