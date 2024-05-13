@@ -10,4 +10,4 @@ function cul (){
   };
 
 window.addEventListener('turbo:load', cul);
-
+window.addEventListener('turbo:render', cul); 
