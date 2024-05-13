@@ -48,6 +48,11 @@ RSpec.describe PurchaseShipping, type: :model do
         @purchase_shipping.valid?
         expect(@purchase_shipping.errors.full_messages).to include("Municipalities can't be blank")
       end
+      it 'streerが空だと保存できないこと' do
+        @purchase_shipping.street = ''
+        @purchase_shipping.valid?
+        expect(@purchase_shipping.errors.full_messages).to include("Street can't be blank")
+      end
       it 'phoneが空だと保存できないこと' do
         @purchase_shipping.phone = ''
         @purchase_shipping.valid?
