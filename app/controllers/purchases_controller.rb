@@ -3,7 +3,7 @@ class PurchasesController < ApplicationController
   before_action :move_to_index, only: [:index]
 
   def index
-    gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
+    gon.public_key = ENV['PAYJP_PUBLIC_KEY']
     @furima = Furima.find(params[:furima_id])
     @purchase_shipping = PurchaseShipping.new
   end
@@ -20,6 +20,7 @@ class PurchasesController < ApplicationController
       @purchase_shipping.save
       redirect_to root_path
     else
+      gon.public_key = ENV['PAYJP_PUBLIC_KEY']
       render :index, status: :unprocessable_entity
     end
   end
@@ -28,17 +29,19 @@ class PurchasesController < ApplicationController
 
   def move_to_index
     @furima = Furima.find(params[:furima_id])
-    if @furima.purchase.present? || @furima.user_id == current_user.id
-      redirect_to root_path
-    end
+    return unless @furima.purchase.present? || @furima.user_id == current_user.id
+
+    redirect_to root_path
   end
 
   def purchase_params
-    params.require(:purchase_shipping).permit(:user_id, :furima_id, :post_code, :area_id, :municipalities, :street, :building, :phone).merge(token: params[:token], user_id: current_user.id, furima_id: @furima.id)
+    params.require(:purchase_shipping).permit(:user_id, :furima_id, :post_code, :area_id, :municipalities, :street, :building, :phone).merge(
+      token: params[:token], user_id: current_user.id, furima_id: @furima.id
+    )
   end
 
   def pay_item
-    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
+    Payjp.api_key = ENV['PAYJP_SECRET_KEY']
     Payjp::Charge.create(
       amount: @furima.price,
       card: purchase_params[:token],

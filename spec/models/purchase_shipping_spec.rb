@@ -6,7 +6,6 @@ RSpec.describe PurchaseShipping, type: :model do
     @purchase_shipping = FactoryBot.build(:purchase_shipping, user_id: user.id)
   end
   describe '購入者情報の保存' do
-
     context '内容に問題がない場合' do
       it 'すべての値が正しく入力されていれば保存できること' do
         expect(@purchase_shipping).to be_valid
@@ -39,19 +38,19 @@ RSpec.describe PurchaseShipping, type: :model do
         expect(@purchase_shipping.errors.full_messages).to include("Municipalities can't be blank")
       end
       it 'phoneが空だと保存できないこと' do
-        @purchase_shipping.phone = ""
+        @purchase_shipping.phone = ''
         @purchase_shipping.valid?
         expect(@purchase_shipping.errors.full_messages).to include("Phone can't be blank")
       end
       it 'phoneが短すぎると保存できないこと' do
         @purchase_shipping.phone = '12345'
         @purchase_shipping.valid?
-        expect(@purchase_shipping.errors.full_messages).to include("Phone is too short")
+        expect(@purchase_shipping.errors.full_messages).to include('Phone is too short')
       end
       it 'phoneが数字以外では保存できないこと' do
         @purchase_shipping.phone = 'aaaaaaaaaaa'
         @purchase_shipping.valid?
-        expect(@purchase_shipping.errors.full_messages).to include("Phone is not a number")
+        expect(@purchase_shipping.errors.full_messages).to include('Phone is not a number')
       end
       it 'tokenが空では登録できないこと' do
         @purchase_shipping.token = nil
