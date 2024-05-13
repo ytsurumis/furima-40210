@@ -18,6 +18,16 @@ RSpec.describe PurchaseShipping, type: :model do
     end
 
     context '内容に問題がある場合' do
+      it 'user_idが空だと保存できないこと' do
+        @purchase_shipping.user_id = nil
+        @purchase_shipping.valid?
+        expect(@purchase_shipping.errors.full_messages).to include("User can't be blank")
+      end
+      it 'furima_idが空だと保存できないこと' do
+        @purchase_shipping.furima_id = nil
+        @purchase_shipping.valid?
+        expect(@purchase_shipping.errors.full_messages).to include("Furima can't be blank")
+      end
       it 'post_codeが空だと保存できないこと' do
         @purchase_shipping.post_code = ''
         @purchase_shipping.valid?
@@ -44,7 +54,12 @@ RSpec.describe PurchaseShipping, type: :model do
         expect(@purchase_shipping.errors.full_messages).to include("Phone can't be blank")
       end
       it 'phoneが短すぎると保存できないこと' do
-        @purchase_shipping.phone = '12345'
+        @purchase_shipping.phone = '123456789'
+        @purchase_shipping.valid?
+        expect(@purchase_shipping.errors.full_messages).to include('Phone is too short')
+      end
+      it 'phoneが12桁以上だと保存できないこと' do
+        @purchase_shipping.phone = '1234567890123'
         @purchase_shipping.valid?
         expect(@purchase_shipping.errors.full_messages).to include('Phone is too short')
       end
