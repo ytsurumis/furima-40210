@@ -1,10 +1,10 @@
 class PurchasesController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_furima, only: [:index, :create, :move_to_index]
   before_action :move_to_index, only: [:index]
 
   def index
     gon.public_key = ENV['PAYJP_PUBLIC_KEY']
-    @furima = Furima.find(params[:furima_id])
     @purchase_shipping = PurchaseShipping.new
   end
 
@@ -13,7 +13,6 @@ class PurchasesController < ApplicationController
   end
 
   def create
-    @furima = Furima.find(params[:furima_id])
     @purchase_shipping = PurchaseShipping.new(purchase_params)
     if @purchase_shipping.valid?
       pay_item
@@ -28,9 +27,7 @@ class PurchasesController < ApplicationController
   private
 
   def move_to_index
-    @furima = Furima.find(params[:furima_id])
     return unless @furima.purchase.present? || @furima.user_id == current_user.id
-
     redirect_to root_path
   end
 
@@ -47,5 +44,9 @@ class PurchasesController < ApplicationController
       card: purchase_params[:token],
       currency: 'jpy'
     )
+  end
+
+  def set_furima
+    @furima = Furima.find(params[:furima_id])
   end
 end
