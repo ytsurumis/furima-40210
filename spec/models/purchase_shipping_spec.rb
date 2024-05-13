@@ -3,7 +3,8 @@ require 'rails_helper'
 RSpec.describe PurchaseShipping, type: :model do
   before do
     user = FactoryBot.create(:user)
-    @purchase_shipping = FactoryBot.build(:purchase_shipping, user_id: user.id)
+    furima = FactoryBot.create(:furima, user_id: user.id)
+    @purchase_shipping = FactoryBot.build(:purchase_shipping, user_id: user.id, furima_id: furima.id)
   end
   describe '購入者情報の保存' do
     context '内容に問題がない場合' do
@@ -28,7 +29,7 @@ RSpec.describe PurchaseShipping, type: :model do
         expect(@purchase_shipping.errors.full_messages).to include('Post code is invalid. Include hyphen(-)')
       end
       it 'areaを選択していないと保存できないこと' do
-        @purchase_shipping.area_id = '1'
+        @purchase_shipping.area_id = 1
         @purchase_shipping.valid?
         expect(@purchase_shipping.errors.full_messages).to include("Area can't be blank")
       end
