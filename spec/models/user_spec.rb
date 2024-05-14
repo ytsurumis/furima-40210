@@ -19,12 +19,10 @@ RSpec.describe User, type: :model do
     end
 
     it 'emailが重複していると登録できない' do
-      user1 = FactoryBot.build(:user)
-      user2 = FactoryBot.build(:user)
-      user2.email = user1.email
-      user2.valid?
-      expect(user2.errors.full_messages).to include('Family name 全角文字を使用してください', 'First name 全角文字を使用してください',
-                                                    'Family name reading 全角文字を使用してください', 'First name reading 全角文字を使用してください')
+      FactoryBot.create(:user, email: 'test@example.com')
+      user = FactoryBot.build(:user, email: 'test@example.com')
+      user.valid?
+      expect(user.errors.full_messages).to include('Email has already been taken')
     end
 
     it 'emailに@が含まれないと登録できない' do
@@ -49,22 +47,21 @@ RSpec.describe User, type: :model do
       @user.password = '00000'
       @user.password_confirmation = '00000'
       @user.valid?
-      expect(@user.errors.full_messages).to include('Password is too short (minimum is 6 characters)',
-                                                    'Family name 全角文字を使用してください', 'First name 全角文字を使用してください', 'Family name reading 全角文字を使用してください', 'First name reading 全角文字を使用してください')
+      expect(@user.errors.full_messages).to include('Password is too short (minimum is 6 characters)')
     end
 
     it 'パスワードは英字のみでは登録できない' do
-      user = FactoryBot.build(:user, password: 'aaaaaa', password_confirmation: 'aaaaaa')
-      user.valid?
-      expect(user.errors.full_messages).to include('Family name 全角文字を使用してください', 'First name 全角文字を使用してください',
-                                                   'Family name reading 全角文字を使用してください', 'First name reading 全角文字を使用してください')
+      @user.password = 'aaaaaa'
+      @user.password_confirmation = 'aaaaaa'
+      @user.valid?
+      expect(@user.errors.full_messages).to include('Password is invalid. Include both letters and numbers')
     end
 
     it 'パスワードは数字のみでは登録できない' do
-      user = FactoryBot.build(:user, password: '111111', password_confirmation: '111111')
-      user.valid?
-      expect(user.errors.full_messages).to include('Family name 全角文字を使用してください', 'First name 全角文字を使用してください',
-                                                   'Family name reading 全角文字を使用してください', 'First name reading 全角文字を使用してください')
+      @user.password = '111111'
+      @user.password_confirmation = '111111'
+      @user.valid?
+      expect(@user.errors.full_messages).to include('Password is invalid. Include both letters and numbers')
     end
 
     it 'パスワードとパスワード（確認）が一致しないと登録できない' do
@@ -82,8 +79,7 @@ RSpec.describe User, type: :model do
     it 'family_nameは全角文字を使用してください' do
       user = FactoryBot.build(:user, family_name: 'aaa')
       user.valid?
-      expect(user.errors.full_messages).to include('Family name 全角文字を使用してください', 'First name 全角文字を使用してください',
-                                                   'Family name reading 全角文字を使用してください', 'First name reading 全角文字を使用してください')
+      expect(user.errors.full_messages).to include('Family name 全角文字を使用してください')
     end
 
     it 'first_nameが空では登録できない' do
@@ -95,8 +91,7 @@ RSpec.describe User, type: :model do
     it 'first_nameは全角文字を使用してください' do
       user = FactoryBot.build(:user, first_name: 'bbb')
       user.valid?
-      expect(user.errors.full_messages).to include('Family name 全角文字を使用してください', 'First name 全角文字を使用してください',
-                                                   'Family name reading 全角文字を使用してください', 'First name reading 全角文字を使用してください')
+      expect(user.errors.full_messages).to include('First name 全角文字を使用してください')
     end
 
     it 'family_name_readingが空では登録できない' do
@@ -108,8 +103,7 @@ RSpec.describe User, type: :model do
     it 'family_name_readingは全角文字を使用してください' do
       user = FactoryBot.build(:user, family_name_reading: 'ccc')
       user.valid?
-      expect(user.errors.full_messages).to include('Family name 全角文字を使用してください', 'First name 全角文字を使用してください',
-                                                   'Family name reading 全角文字を使用してください', 'First name reading 全角文字を使用してください')
+      expect(user.errors.full_messages).to include('Family name reading 全角文字を使用してください')
     end
 
     it 'first_name_readingが空では登録できない' do
@@ -121,8 +115,7 @@ RSpec.describe User, type: :model do
     it 'first_name_readingは全角文字を使用してください' do
       user = FactoryBot.build(:user, first_name_reading: 'ddd')
       user.valid?
-      expect(user.errors.full_messages).to include('Family name 全角文字を使用してください', 'First name 全角文字を使用してください',
-                                                   'Family name reading 全角文字を使用してください', 'First name reading 全角文字を使用してください')
+      expect(user.errors.full_messages).to include('First name reading 全角文字を使用してください')
     end
 
     it 'birthdayが空では登録できない' do
